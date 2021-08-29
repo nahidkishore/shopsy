@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const jwt = require('jsonwebtoken');
 exports.signup = (req, res) => {
   User.findOne({ email: req.body.email }).exec((err, user) => {
     if (user)
@@ -28,17 +29,15 @@ exports.signup = (req, res) => {
 // user signin
 
 exports.signin = (req, res) => {
-  User.findOne({ email: req.body.email })
-    .exec((err, user) => {
-      if (err) return res.status(400).json({ err });
-      
-      if (user) {
-        if (user.authenticated(req.body.password)) {
-        
-      }
-      } else {
-        return res.status(400).json({ message: 'Something went wrong' }) 
-    }
+  User.findOne({ email: req.body.email }).exec((err, user) => {
+    if (err) return res.status(400).json({ err });
 
+    if (user) {
+      if (user.authenticated(req.body.password)) {
+        const token = jwt.sign({ _id: user._id });
+      }
+    } else {
+      return res.status(400).json({ message: 'Something went wrong' });
+    }
   });
-}
+};
