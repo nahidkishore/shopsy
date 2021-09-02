@@ -41,7 +41,7 @@ const userSchema = new mongoose.Schema(
       enum: ['user', 'admin'],
       default: 'user',
     },
-    contactNumber: { type: String},
+    contactNumber: { type: String },
     profileName: { type: String },
   },
   { timestamps: true }
@@ -50,6 +50,10 @@ const userSchema = new mongoose.Schema(
 userSchema.virtual('password').set(function (password) {
   this.hash_password = bcrypt.hashSync(password, 10);
 });
+userSchema.virtual('fullName').get(function () {
+  return `${this.firstName} ${this.lastName}`;
+});
+
 userSchema.methods = {
   authenticate: function (password) {
     return bcrypt.compareSync(password, this.hash_password);
