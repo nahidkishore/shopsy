@@ -9,10 +9,11 @@ const authRoutes = require('./routes/auth');
 const adminRoutes = require('./routes/admin/auth');
 const categoryRoutes = require('./routes/category');
 const productRoutes = require('./routes/product');
+const cartRoutes = require('./routes/cart');
 env.config();
 
 //MongoDB connection
-
+//mongodb+srv://<username>:<password>@cluster0.jolmh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
 mongoose
   .connect(
     `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASS}@cluster0.jolmh.mongodb.net/${process.env.MONGODB_DATABASE}?retryWrites=true&w=majority`,
@@ -24,13 +25,14 @@ mongoose
   .then(() => {
     console.log('Database connected successfully');
   })
-  .catch((err) => console.error('Database  Connection Failed!'));
+  .catch((error) => console.log(error));
 
 app.use(express.json());
 app.use('/api', authRoutes);
 app.use('/api', adminRoutes);
 app.use('/api', categoryRoutes);
 app.use('/api', productRoutes);
+app.use('/api', cartRoutes);
 
 app.get('/', (req, res, next) => {
   res.status(200).json({
