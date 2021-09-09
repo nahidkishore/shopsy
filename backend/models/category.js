@@ -13,7 +13,7 @@ const categorySchema = new mongoose.Schema(
     },
     parentId: {
       type: String,
-    }
+    },
   },
   { timestamps: true }
 );
