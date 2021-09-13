@@ -43,6 +43,7 @@ exports.signin = (req, res) => {
           }
         );
         const { _id, firstName, lastName, email, role, fullName } = user;
+        res.cookie('token', token, { expiresIn: '1d' });
         res.status(200).json({
           token,
           user: {
@@ -63,4 +64,11 @@ exports.signin = (req, res) => {
   });
 };
 
-// after a successful login,
+// admin signout
+
+exports.signout = (req, res) => {
+  res.clearCookie('token');
+  res.status(200).json({
+    message: 'SignOut successfully'
+  })
+};
