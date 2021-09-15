@@ -5,7 +5,7 @@ import Signup from './containers/Signup/Signup';
 import PrivateRoute from './components/HOC/PrivateRoute';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllCategory, isUserLoggedIn } from './actions';
+import { getInitialData, isUserLoggedIn } from './actions';
 import HomeScreen from './containers/Screen/HomeScreen';
 import ProductScreen from './containers/Screen/ProductScreen';
 import OrderScreen from './containers/Screen/OrderScreen';
@@ -17,7 +17,7 @@ function App() {
     if (!auth.authenticate) {
       dispatch(isUserLoggedIn());
     }
-    dispatch(getAllCategory());
+    dispatch(getInitialData());
   }, [dispatch, auth.authenticate]);
   return (
     <div className='App'>
