@@ -1,7 +1,6 @@
 import React from 'react';
 import Layout from '../../components/Layout/Layout';
-
-import '../../components/Style/HomeScreen.css';
+//import '../../components/Style/HomeScreen.css';
 const HomeScreen = () => {
   return (
     <div>

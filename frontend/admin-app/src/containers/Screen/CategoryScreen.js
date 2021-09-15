@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Layout from '../../components/Layout/Layout';
 import { Container, Row, Col, Button, Modal } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { addCategory, getAllCategory } from '../../actions';
+import { addCategory } from '../../actions';
 import Input from '../../components/UI/Input/Input';
 const CategoryScreen = () => {
   const [categoryName, seCategoryName] = useState('');
@@ -12,9 +12,7 @@ const CategoryScreen = () => {
 
   const category = useSelector((state) => state.category);
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getAllCategory());
-  }, [dispatch]);
+
   const handleClose = () => {
     const form = new FormData();
     form.append('name', categoryName);

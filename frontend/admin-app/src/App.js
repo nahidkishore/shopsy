@@ -5,7 +5,7 @@ import Signup from './containers/Signup/Signup';
 import PrivateRoute from './components/HOC/PrivateRoute';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { isUserLoggedIn } from './actions';
+import { getAllCategory, isUserLoggedIn } from './actions';
 import HomeScreen from './containers/Screen/HomeScreen';
 import ProductScreen from './containers/Screen/ProductScreen';
 import OrderScreen from './containers/Screen/OrderScreen';
@@ -17,14 +17,15 @@ function App() {
     if (!auth.authenticate) {
       dispatch(isUserLoggedIn());
     }
+    dispatch(getAllCategory());
   }, [dispatch, auth.authenticate]);
   return (
     <div className='App'>
       <Switch>
         <PrivateRoute path='/' exact component={HomeScreen} />
-        <PrivateRoute path='/products' component={ProductScreen}/>
+        <PrivateRoute path='/products' component={ProductScreen} />
         <PrivateRoute path='/orders' component={OrderScreen} />
-        <PrivateRoute path='/category' component={ CategoryScreen}/>
+        <PrivateRoute path='/category' component={CategoryScreen} />
         <Route path='/signin' component={Signin} />
         <Route path='/signup' component={Signup} />
       </Switch>
