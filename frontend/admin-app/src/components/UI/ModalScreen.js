@@ -8,8 +8,8 @@ const ModalScreen = (props) => {
       </Modal.Header>
       <Modal.Body>{props.children}</Modal.Body>
       <Modal.Footer>
-        <Button variant='primary' onClick={props.handleClose}>
-          Save Changes
+        <Button {...props} variant='primary' onClick={props.onSubmit}>
+          Save
         </Button>
       </Modal.Footer>
     </Modal>

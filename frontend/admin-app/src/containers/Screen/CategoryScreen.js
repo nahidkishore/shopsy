@@ -13,8 +13,10 @@ const CategoryScreen = () => {
 
   const category = useSelector((state) => state.category);
   const dispatch = useDispatch();
-
   const handleClose = () => {
+    setShow(false);
+  };
+  const submitCategoryForm = () => {
     const form = new FormData();
     form.append('name', categoryName);
     form.append('parentId', parentCategoryId);
@@ -29,6 +31,7 @@ const CategoryScreen = () => {
     }; */
     //console.log(cat);
     setShow(false);
+    
   };
   const handleShow = () => setShow(true);
   const renderCategories = (categories) => {
@@ -86,6 +89,7 @@ const CategoryScreen = () => {
         show={show}
         handleClose={handleClose}
         modalTitle={`Add New Category`}
+        onSubmit={submitCategoryForm}
       >
         <Input
           value={categoryName}

@@ -7,7 +7,7 @@ import { addProduct } from '../../actions';
 import ModalScreen from '../../components/UI/ModalScreen';
 import '../../components/Style/ProductScreen.css';
 import { generatePublicUrl } from '../../urlConfig';
-const ProductScreen = () => {
+const ProductScreen = (props) => {
   const [name, setName] = useState('');
   const [quantity, setQuantity] = useState('');
   const [price, setPrice] = useState('');
@@ -18,20 +18,27 @@ const ProductScreen = () => {
   const [productDetailModal, setProductDetailModal] = useState(false);
   const [productDetails, setProductDetails] = useState(null);
   const category = useSelector((state) => state.category);
-  const dispatch = useDispatch();
   const product = useSelector((state) => state.product);
+  const dispatch = useDispatch();
   const handleClose = () => {
-    const form = new FormData();
-    form.append('name', name);
-    form.append('quantity', quantity);
-    form.append('price', price);
-    form.append('description', description);
-    form.append('category', categoryId);
-    for (let pic of productPictures) {
-      form.append('productPicture', pic);
-    }
-    dispatch(addProduct(form));
+
     setShow(false);
+  };
+
+  const submitProductForm = () => {
+    const form = new FormData();
+    form.append("name", name);
+    form.append("quantity", quantity);
+    form.append("price", price);
+    form.append("description", description);
+    form.append("category", categoryId);
+
+    for (let pic of productPictures) {
+      form.append("productPicture", pic);
+    }
+
+    dispatch(addProduct(form)).then(() => setShow(false));
+    
   };
   const handleShow = () => setShow(true);
 
@@ -42,12 +49,14 @@ const ProductScreen = () => {
         createCategoryList(category.children, options);
       }
     }
+
     return options;
   };
 
   const handleProductPictures = (e) => {
     setProductPictures([...productPictures, e.target.files[0]]);
   };
+
   const renderProducts = () => {
     return (
       <Table style={{ fontSize: 12 }} responsive='sm'>
@@ -86,6 +95,7 @@ const ProductScreen = () => {
         show={show}
         handleClose={handleClose}
         ModalTitle={`Add New Product`}
+        onSubmit={submitProductForm}
       >
         <Input
           label='Name'
