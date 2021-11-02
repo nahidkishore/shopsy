@@ -36,7 +36,6 @@ const ProductScreen = (props) => {
     for (let pic of productPictures) {
       form.append("productPicture", pic);
     }
-
     dispatch(addProduct(form)).then(() => setShow(false));
     
   };
